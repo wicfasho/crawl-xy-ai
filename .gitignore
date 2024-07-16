@@ -1,0 +1,8 @@
+.DS_Store
+
+# *.env
+
+# Models
+*.gguf
+
+# visited_urls.txt

@@ -1,0 +1,45 @@
+services:
+  crawl-xy:
+    container_name: crawl-xy
+    build:
+      context: ./service
+    networks:
+      - crawl-xy
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./envs/global.env
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: crawl-xy-db-postgres
+    build:
+      context: ./database/postgres
+    env_file:
+      - ./envs/postgres.env
+    ports:
+      - "5432:5432"
+    networks:
+      - crawl-xy
+    volumes:
+      - crawl-xy-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: crawl-xy-pgadmin
+    env_file:
+      - ./envs/pgadmin.env
+    ports:
+      - "5050:80"
+    networks:
+      - crawl-xy
+    depends_on:
+      - postgres
+
+networks:
+  crawl-xy:
+    driver: bridge
+
+volumes:
+  crawl-xy-data:
