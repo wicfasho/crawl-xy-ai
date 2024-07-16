@@ -70,7 +70,7 @@ func Start() {
 	var wg sync.WaitGroup
 
 	// Init pgvector store
-	tool, err := createPgVectorStore("openai")
+	tool, err := createPgVectorStore("openai") // update parameter to use other llms
 	if err != nil {
 		log.Fatal().Msgf("couldn't create store: %v\n", err)
 	}
